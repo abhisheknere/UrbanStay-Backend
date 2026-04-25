@@ -37,4 +37,5 @@ public class Hotel {
 
     @Embedded
     private HotelContactInfo contactInfo;
+
 }
