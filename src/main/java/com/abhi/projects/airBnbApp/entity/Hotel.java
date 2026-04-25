@@ -3,6 +3,10 @@ package com.abhi.projects.airBnbApp.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,4 +28,13 @@ public class Hotel {
 
     @Column(columnDefinition = "TEXT[]")
     private String[] amenities;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @Embedded
+    private HotelContactInfo contactInfo;
 }
