@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -53,6 +54,17 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus bookingStatus;
+
+
+    // There is ManyToMany relationship in Booking and Guest , hence the booking_guests table will be created by SpringBoot
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  // Don't define JoinTable at both the places, bcoz JoinTable will create another table
+                 // JoinTable and JoinColumn should only be present at that place which is going to own that relationship, in this case Booking
+            name = "booking_guest",
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "guest_id")
+    )
+    private Set<Guest> guests; //booking_guests will be created by springBoot
 
 
 }
